@@ -1,0 +1,23 @@
+{
+  "name": "conduit-benchmarks",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reproducible standing-context token-savings benchmark for Conduit's lazy MCP discovery.",
+  "type": "module",
+  "scripts": {
+    "bench": "tsx src/bench.ts",
+    "build": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "js-tiktoken": "^1.0.12"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

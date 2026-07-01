@@ -1,0 +1,5 @@
+node_modules/
+*.log
+.DS_Store
+
+# Commit fixtures/ and results/ deliberately (they are the reproducible artifact).
