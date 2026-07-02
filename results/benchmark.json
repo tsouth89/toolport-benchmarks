@@ -1,14 +1,14 @@
 {
-  "generatedBy": "conduit-benchmarks",
+  "generatedBy": "toolport-benchmarks",
   "tokenizer": "o200k_base",
   "lazy": {
     "names": [
-      "conduit_status",
-      "conduit_search_tools",
-      "conduit_call_tool",
-      "conduit_fetch_result"
+      "toolport_status",
+      "toolport_search_tools",
+      "toolport_call_tool",
+      "toolport_fetch_result"
     ],
-    "tokens": 777
+    "tokens": 781
   },
   "rows": [
     {
@@ -16,24 +16,24 @@
       "source": "stripe/openapi spec3.json",
       "tools": 587,
       "fullTokens": 415391,
-      "lazyTokens": 777,
-      "reductionPct": 99.81294731951343
+      "lazyTokens": 781,
+      "reductionPct": 99.81198437135133
     },
     {
       "catalog": "GitHub",
       "source": "github/rest-api-description",
       "tools": 1194,
       "fullTokens": 351579,
-      "lazyTokens": 777,
-      "reductionPct": 99.77899703907231
+      "lazyTokens": 781,
+      "reductionPct": 99.77785931469172
     },
     {
       "catalog": "OpenAI",
       "source": "openai/openai-openapi",
       "tools": 242,
       "fullTokens": 299654,
-      "lazyTokens": 777,
-      "reductionPct": 99.74070094175282
+      "lazyTokens": 781,
+      "reductionPct": 99.7393660688661
     }
   ]
 }

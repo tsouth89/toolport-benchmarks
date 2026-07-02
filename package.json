@@ -1,8 +1,8 @@
 {
-  "name": "conduit-benchmarks",
+  "name": "toolport-benchmarks",
   "version": "0.1.0",
   "private": true,
-  "description": "Reproducible standing-context token-savings benchmark for Conduit's lazy MCP discovery.",
+  "description": "Reproducible standing-context token-savings benchmark for Toolport's lazy MCP discovery.",
   "type": "module",
   "scripts": {
     "bench": "tsx src/bench.ts",

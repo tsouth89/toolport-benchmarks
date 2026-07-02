@@ -1,4 +1,4 @@
-// Conduit standing-context token-savings benchmark.
+// Toolport standing-context token-savings benchmark.
 //
 // Measures the INPUT-token cost a model pays just to have tools AVAILABLE on
 // every request, two ways:
@@ -6,12 +6,12 @@
 //   Full mode  (baseline): the client injects the entire MCP `tools/list`
 //                          (every tool's name + description + inputSchema)
 //                          into context on every turn.
-//   Lazy mode  (Conduit):  the client injects ONLY Conduit's lazy meta-tools.
+//   Lazy mode  (Toolport):  the client injects ONLY Toolport's lazy meta-tools.
 //
 // Headline metric: standing-context reduction = (full - lazy) / full, per set.
 //
 // Honesty caveat (see README): lazy mode adds per-search RESULT tokens when the
-// model calls conduit_search_tools (the search returns a handful of tools'
+// model calls toolport_search_tools (the search returns a handful of tools'
 // schemas as a tool RESULT). The standing reduction is the headline; the
 // amortized cost depends on how many DISTINCT tools a session actually uses.
 //
@@ -31,14 +31,14 @@ const RESULTS = join(ROOT, "results");
 type Tool = { name: string; description?: string; inputSchema?: unknown };
 
 // The catalogs to benchmark. Each is a real MCP `tools/list` captured from a
-// real OpenAPI spec via conduit-openapi-mcp (see README for provenance).
+// real OpenAPI spec via toolport-openapi-mcp (see README for provenance).
 const CATALOGS: { label: string; file: string; source: string }[] = [
   { label: "Stripe", file: "stripe.tools.json", source: "stripe/openapi spec3.json" },
   { label: "GitHub", file: "github.tools.json", source: "github/rest-api-description" },
   { label: "OpenAI", file: "openai.tools.json", source: "openai/openai-openapi" },
 ];
 
-const LAZY_FILE = "conduit-lazy-tools.json";
+const LAZY_FILE = "toolport-lazy-tools.json";
 
 const enc = getEncoding("o200k_base");
 
@@ -139,18 +139,18 @@ async function main(): Promise<void> {
   const caveat =
     "> **Honesty caveat.** This is the *standing* context cost (tools always in " +
     "context). Lazy mode adds per-search result tokens when the model calls " +
-    "`conduit_search_tools`, and those results return a handful of tools' schemas. " +
+    "`toolport_search_tools`, and those results return a handful of tools' schemas. " +
     "The standing reduction above is the headline; the amortized savings for a " +
     "given session depends on how many DISTINCT tools it actually uses. We report " +
     "the standing reduction and state this plainly - we do not claim the full % as " +
     "an end-to-end session saving.";
 
   const md =
-    `# Conduit lazy-discovery: standing-context token savings\n\n` +
+    `# Toolport lazy-discovery: standing-context token savings\n\n` +
     `${meta}\n\n${table}\n\n${caveat}\n`;
 
   const out = {
-    generatedBy: "conduit-benchmarks",
+    generatedBy: "toolport-benchmarks",
     tokenizer: "o200k_base",
     lazy: { names: lazyNames, tokens: lazyTokens },
     rows,
