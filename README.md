@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/tsouth89-toolport-benchmarks-badge.png)](https://mseep.ai/app/tsouth89-toolport-benchmarks)
+
 # toolport-benchmarks
 
 A reproducible, one-command benchmark of the **standing input-token cost** of
