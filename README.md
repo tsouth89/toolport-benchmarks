@@ -135,6 +135,36 @@ For reference, Toolport's own in-app "tokens saved" counter uses a cruder
 benchmark's tiktoken counts land within ~7% of that estimate on these catalogs,
 and the reduction percentage is identical to one decimal either way.
 
+## Recall: can lazy discovery still find the tool?
+
+Cutting the standing cost only helps if the agent can still *find* the right tool
+on demand. This benchmark runs Toolport's **real** lexical ranker (the same
+`search_catalog` the gateway serves `toolport_search_tools` from, not a
+re-implementation) over the 587-tool Stripe catalog against 23 paraphrased,
+gold-labelled intents (e.g. "refund a payment" -> `PostRefunds`, "close a
+dispute" -> `PostDisputesDisputeClose`), and reports recall@k: how often the
+correct tool lands in the top k results.
+
+| recall@5 | recall@10 | recall@25 |
+| --: | --: | --: |
+| 91% | 96% | 100% |
+
+Run it (the harness lives in the gateway repo so it exercises the shipping ranker):
+
+```bash
+# from the toolport gateway checkout
+STRIPE_TOOLS_JSON=../toolport-benchmarks/fixtures/stripe.tools.json \
+STRIPE_INTENTS_JSON=../toolport-benchmarks/fixtures/stripe.intents.json \
+RECALL_SERVER= \
+  cargo test --manifest-path src-tauri/Cargo.toml --bin toolport-gateway \
+  recall_report -- --nocapture
+```
+
+The intents are ours (a labelled set, stated plainly). The same harness accepts
+any `[{name, description, inputSchema}]` catalog plus `[{q, ok}]` intents, so a
+recognised public set such as the [MCP-Zero](https://github.com/xfey/MCP-Zero)
+`mcp-tools` dataset (2,797 tools) drops straight in once converted to that shape.
+
 ## Layout
 
 ```
@@ -148,6 +178,7 @@ toolport-benchmarks/
   fixtures/
     toolport-lazy-tools.json      # Toolport's default lazy meta-tools (from the gateway)
     stripe.tools.json            # 587 real Stripe tools
+    stripe.intents.json          # 23 gold-labelled intents for the recall benchmark
     github.tools.json            # 1194 real GitHub tools
     openai.tools.json            # 242 real OpenAI tools
   results/
