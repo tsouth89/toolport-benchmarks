@@ -98,7 +98,7 @@ verbatim from the gateway source:
 
 Each `*.tools.json` is a real MCP `tools/list` array (`{ name, description,
 inputSchema }` per tool), generated with the exact
-[`toolport-openapi-mcp`](https://github.com/tsouth89/toolport-openapi-mcp) logic
+[`toolport-openapi-mcp`](https://github.com/btsouth/toolport-openapi-mcp) logic
 (`loadApi`) pointed at a real, public OpenAPI spec. `toolport-openapi-mcp` maps
 one MCP tool per API operation: `operationId` -> tool name, parameters + request
 body -> input schema. This is what a client would actually receive from that
